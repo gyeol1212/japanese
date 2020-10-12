@@ -14,6 +14,27 @@ export default function TestView({selection, reset, gatakana: isGatakana} : ITes
     const [target, setTarget] = useState<any>(undefined);
     const [answer, setAnswer] = useState<boolean>(false);
 
+    useEffect(() => {
+        init()
+    }, [selection])
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        const {key} = e;
+
+        if (key === "Enter") {
+            next();
+        }
+    }
+
+    const next = () => {
+        if (answer) {
+            setAnswer(false)
+            setTarget(items.pop())
+        } else {
+            setAnswer(true)
+        }
+    }
+
     const init = () => {
         const allItems: string[] = [];
 
@@ -35,27 +56,6 @@ export default function TestView({selection, reset, gatakana: isGatakana} : ITes
     }
 
     useEffect(() => {
-        init()
-    }, [selection, init])
-
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        const {key} = e;
-
-        if (key === "Enter") {
-            next();
-        }
-    }
-
-    const next = () => {
-        if (answer) {
-            setAnswer(false)
-            setTarget(items.pop())
-        } else {
-            setAnswer(true)
-        }
-    }    
-
-    useEffect(() => {
         // @ts-ignore
         window.onkeydown = handleKeyDown
         window.onclick = next
@@ -64,8 +64,15 @@ export default function TestView({selection, reset, gatakana: isGatakana} : ITes
     const reStart = (e : any) => {
         e.stopPropagation();
 
+        setAnswer(false)
         init()
     }
+
+    const resetAll = () => {
+        setAnswer(false)
+        reset();
+    }
+
 
     return (
         target
@@ -81,7 +88,7 @@ export default function TestView({selection, reset, gatakana: isGatakana} : ITes
             </div>
             : <div>
                 <button onClick={init} type="button" className="btn btn-outline-dark btn-lg btn-block w-50 mx-auto mt-5">Re Start</button>
-                <button onClick={reset} type="button" className="btn btn-outline-dark btn-lg btn-block w-50 mx-auto mt-5">Reset</button>
+                <button onClick={resetAll} type="button" className="btn btn-outline-dark btn-lg btn-block w-50 mx-auto mt-5">Reset</button>
             </div>
     )
 }
