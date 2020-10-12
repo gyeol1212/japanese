@@ -14,27 +14,6 @@ export default function TestView({selection, reset, gatakana: isGatakana} : ITes
     const [target, setTarget] = useState<any>(undefined);
     const [answer, setAnswer] = useState<boolean>(false);
 
-    useEffect(() => {
-        init()
-    }, [selection])
-
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        const {key} = e;
-
-        if (key === "Enter") {
-            next();
-        }
-    }
-
-    const next = () => {
-        if (answer) {
-            setAnswer(false)
-            setTarget(items.pop())
-        } else {
-            setAnswer(true)
-        }
-    }
-
     const init = () => {
         const allItems: string[] = [];
 
@@ -56,6 +35,27 @@ export default function TestView({selection, reset, gatakana: isGatakana} : ITes
     }
 
     useEffect(() => {
+        init()
+    }, [selection, init])
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        const {key} = e;
+
+        if (key === "Enter") {
+            next();
+        }
+    }
+
+    const next = () => {
+        if (answer) {
+            setAnswer(false)
+            setTarget(items.pop())
+        } else {
+            setAnswer(true)
+        }
+    }    
+
+    useEffect(() => {
         // @ts-ignore
         window.onkeydown = handleKeyDown
         window.onclick = next
@@ -66,7 +66,6 @@ export default function TestView({selection, reset, gatakana: isGatakana} : ITes
 
         init()
     }
-
 
     return (
         target

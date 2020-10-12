@@ -70,9 +70,8 @@ const ra = [
 
 const wa = [
     {ワ: "wa 와"},
-    {ヰ: "wi 이"},
-    {ヱ: "we 에"},
     {ヲ: "wo 오"},
+    {ン: "응"},
 ]
 
 export enum EGatakana {

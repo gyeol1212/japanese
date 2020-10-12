@@ -70,9 +70,8 @@ const ra = [
 
 const wa = [
     {わ: "wa 와"},
-    {ゐ: "wi 이"},
-    {ゑ: "we 에"},
     {を: "wo 오"},
+    {ん : "응"}
 ]
 
 export enum EHiragana {
